@@ -1,16 +1,30 @@
 name: Auto Invite Collaborator
+
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 jobs:
   invite:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.title, 'invite me')
+    if: contains(github.event.issue.title, 'invite me') || contains(github.event.issue.title, 'Invite me')
+    
     steps:
-      - name: Send Repository Invite
-        uses: mshick/add-collaborator-action@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          username: ${{ github.event.issue.user.login }}
-          permission: write
+      - name: Invite User via GitHub CLI
+        run: |
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.repository }}/collaborators/${{ github.event.issue.user.login }} \
+            -f permission='push'
+        env:
+          # Changed from GITHUB_TOKEN to your custom elevated token
+          GH_TOKEN: ${{ secrets.INVITE_TOKEN }}
+
+      - name: Close the issue with a comment
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "Hi @${{ github.event.issue.user.login }}! 👋 An invitation has been sent to your GitHub account and email. Please check your notifications or email to accept it and start collaborating!"
+          gh issue close ${{ github.event.issue.number }}
+        env:
+          # Using the elevated token here as well to ensure closing permissions work
+          GH_TOKEN: ${{ secrets.INVITE_TOKEN }}

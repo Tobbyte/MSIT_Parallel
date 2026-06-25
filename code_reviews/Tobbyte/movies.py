@@ -1,6 +1,6 @@
 from random import randint
 import matplotlib.pyplot as plt
-##### TTTETSTSSSSTTTTTT
+
 """ A simple interface to interact with an dummy movie "db" (local dict) """
 
 """
@@ -31,7 +31,7 @@ def main():
     # Dictionary to store the movies and the rating
     movies = {
         "The Shawshank Redemption": 9.5,
-        "Pulp Fiction": 8.8,
+        "Pulp Fiction": 9.5,
         "The Room": 3.6,
         "The Godfather": 9.2,
         "The Godfather: Part II": 9.0,
@@ -200,6 +200,10 @@ def get_statistics(db: dict[str, float]):
 
     output(f"Average rating: {avg}", space_before=True)
     output(f"Median rating: {median}")
+
+    ############
+    ### DNI: wenn es mehr als einen besten film gibt gibt er nur einen aus, ebenso worst
+    ############
     output(f'Best movie: "{best_name}", {best_rat}')
     output(f'Worst movie: "{worst_name}", {worst_rat}')
 
@@ -246,7 +250,9 @@ def ratings_histogram(db: list[float]):
                 output(
                     "Format 'asd' is not supported (supported formats: avif, eps, gif, jpeg, jpg, pdf, pgf, png, ps, raw, rgba, svg, svgz, tif, tiff, webp)"
                 )
-
+############
+### DNI: Bonus - wäre cool wenn er sagt wo er gespeichert hat den pfad
+############
 
 def idle_after_input():
     """Idles with prompt to continue"""

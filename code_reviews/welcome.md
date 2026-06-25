@@ -8,6 +8,7 @@ Wäre doch ganz cool wenn wir üben könnten hilfreiches Feedback zu geben und f
 ## Workflow
 ### eigenen code reviewn lassen
 - erstellt von hier einen neuen Branch
+- tragt dessen Namen unten in die Liste ein
 - pusht dort euren Code
 - sagt bescheid :)
 
@@ -18,3 +19,6 @@ Wäre doch ganz cool wenn wir üben könnten hilfreiches Feedback zu geben und f
 - pushen
 - Bescheid geben
 
+
+### Branches die sich über reviews freuen würden
+- Tobbyte-movie-project

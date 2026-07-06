@@ -84,54 +84,71 @@ def delete_movie(movies):
             print("\nPlease enter a valid number.")
 
 
-def update_movie(movies):
-    if not movies:
-        print("\nNo movies available.")
-        return
-
+def select_movie(movies):
     movie_list = list(movies.keys())
 
     print("------------------------------------\n")
     print("Select a movie to update:\n")
+
     for i, title in enumerate(movie_list, start=1):
         print(f"{i}. {title} ({movies[title]})")
+
     print("\n------------------------------------\n")
 
     while True:
         choice = input("Enter movie number or 'exit' to cancel: ")
 
         if choice.lower() == "exit":
-            return
+            return None
 
         if choice.isdigit():
             index = int(choice) - 1
 
             if 0 <= index < len(movie_list):
-                title = movie_list[index]
+                return movie_list[index]
 
-                while True:
-                    rating_input = input("\nEnter new rating (0-10) or 'exit': ")
+        print("\nInvalid number.")
 
-                    if rating_input.lower() == "exit":
-                        return
 
-                    try:
-                        rating = float(rating_input)
+def get_rating():
+    while True:
+        rating_input = input("\nEnter new rating (0-10) or 'exit': ")
 
-                        if 0 <= rating <= 10:
-                            movies[title] = rating
-                            print("\n------------------------------------\n")
-                            print(f"Updated successfully!\nNew rating of '{title}' is {rating}")
-                            print("\n------------------------------------")
-                            return
-                        else:
-                            print("\nRating must be between 0 and 10.")
-                    except ValueError:
-                        print("\nInvalid rating. Please enter a number.")
+        if rating_input.lower() == "exit":
+            return None
+
+        try:
+            rating = float(rating_input)
+
+            if 0 <= rating <= 10:
+                return rating
             else:
-                print("\nInvalid number.")
-        else:
-            print("\nPlease enter a valid number.")
+                print("\nRating must be between 0 and 10.")
+
+        except ValueError:
+            print("\nInvalid rating. Please enter a number.")
+
+
+def update_movie(movies):
+    if not movies:
+        print("\nNo movies available.")
+        return
+
+    title = select_movie(movies)
+
+    if title is None:
+        return
+
+    rating = get_rating()
+
+    if rating is None:
+        return
+
+    movies[title] = rating
+
+    print("\n------------------------------------\n")
+    print(f"Updated successfully!\nNew rating of '{title}' is {rating}")
+    print("\n------------------------------------")
 
 
 def show_stats(movies):

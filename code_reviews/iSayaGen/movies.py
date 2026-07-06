@@ -59,26 +59,37 @@ def delete_movie(movies):
         if choice.lower() == "exit":
             return
 
+        # Option 1: User enters a number
         if choice.isdigit():
             index = int(choice) - 1
 
             if 0 <= index < len(movie_list):
                 title = movie_list[index]
-
-                confirm = input(f"\nDelete '{title}'? (y/n): ")
-
-                if confirm.lower() == "y":
-                    del movies[title]
-                    print("\n------------------------------------\n")
-                    print(f"Movie '{title}' deleted successfully!")
-                    print("\n------------------------------------")
-                else:
-                    print("\nDeletion canceled.")
-                return
             else:
                 print("\nInvalid number.")
+                continue
+
+        # Option 2: User enters a title
         else:
-            print("\nPlease enter a valid number.")
+            # Case-insensitive match
+            matches = [t for t in movie_list if t.lower() == choice.lower()]
+
+            if matches:
+                title = matches[0]
+            else:
+                print("\nMovie not found.")
+                continue
+
+        confirm = input(f"\nDelete '{title}'? (y/n): ")
+
+        if confirm.lower() == "y":
+            del movies[title]
+            print("\n------------------------------------\n")
+            print(f"Movie '{title}' deleted successfully!")
+            print("\n------------------------------------")
+        else:
+            print("\nDeletion canceled.")
+        return
 
 def select_movie(movies):
     movie_list = list(movies.keys())
@@ -92,18 +103,28 @@ def select_movie(movies):
     print("\n------------------------------------\n")
 
     while True:
-        choice = input("Enter movie number or 'exit' to cancel: ")
+        choice = input("Enter movie number, name or 'exit' to cancel: ")
 
         if choice.lower() == "exit":
             return None
 
+        # Option 1: number input
         if choice.isdigit():
             index = int(choice) - 1
 
             if 0 <= index < len(movie_list):
                 return movie_list[index]
+            else:
+                print("\nInvalid number.")
+                continue
 
-        print("\nInvalid number.")
+        # Option 2: title input (case-insensitive)
+        matches = [t for t in movie_list if t.lower() == choice.lower()]
+
+        if matches:
+            return matches[0]
+        else:
+            print("\nMovie not found.")
 
 def get_rating():
     while True:

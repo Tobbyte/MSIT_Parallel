@@ -11,9 +11,10 @@ def list_movies(movies):
 
 
 def add_movie(movies):
-    title = input("\nEnter movie title (or type 'exit' to cancel): ")
+    title = input("\nEnter movie title (leave empty to cancel): ").strip()
 
-    if title.lower() == "exit":
+    if not title:
+        print("\nCancelled by user.")
         return
 
     if title in movies:

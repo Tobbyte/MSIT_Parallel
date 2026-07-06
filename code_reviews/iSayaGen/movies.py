@@ -2,11 +2,13 @@
 
 import random
 
+
 def list_movies(movies):
     print("\n------------ Movie List ------------\n")
     for title, rating in movies.items():
         print(f"{title}: {rating}")
     print("\n------------------------------------")
+
 
 def add_movie(movies):
     title = input("\nEnter movie title (leave empty to cancel): ").strip()
@@ -41,6 +43,7 @@ def add_movie(movies):
     print("\n------------------------------------\n")
     print(f"Movie '{title}' was added successfully!")
     print("\n------------------------------------")
+
 
 def delete_movie(movies):
     if not movies:
@@ -91,6 +94,7 @@ def delete_movie(movies):
             print("\nDeletion canceled.")
         return
 
+
 def select_movie(movies):
     movie_list = list(movies.keys())
 
@@ -126,6 +130,7 @@ def select_movie(movies):
         else:
             print("\nMovie not found.")
 
+
 def get_rating():
     while True:
         rating_input = input("\nEnter new rating (0-10) or 'exit': ")
@@ -143,6 +148,7 @@ def get_rating():
 
         except ValueError:
             print("\nInvalid rating. Please enter a number.")
+
 
 def update_movie(movies):
     if not movies:
@@ -164,6 +170,7 @@ def update_movie(movies):
     print("\n------------------------------------\n")
     print(f"Updated successfully!\nNew rating of '{title}' is {rating}")
     print("\n------------------------------------")
+
 
 def show_stats(movies):
     if not movies:
@@ -197,6 +204,7 @@ def show_stats(movies):
     print(f"Worst movie(s): {', '.join(worst_movies)} ({worst_rating})")
     print("\n------------------------------------")
 
+
 def random_movie(movies):
     if not movies:
         print("\nNo movies available.")
@@ -205,9 +213,10 @@ def random_movie(movies):
     title = random.choice(list(movies.keys()))
     rating = movies[title]
 
-    print(f"\n----------- Random Movie -----------\n")
+    print("\n----------- Random Movie -----------\n")
     print(f"{title}: {rating}")
     print("\n------------------------------------")
+
 
 def search_movies(movies):
     if not movies:
@@ -231,6 +240,7 @@ def search_movies(movies):
         print(f"{title} ({rating})")
     print("\n------------------------------------")
 
+
 def sorted_movies(movies):
     if not movies:
         print("\nNo movies available.")
@@ -243,8 +253,10 @@ def sorted_movies(movies):
         print(f"{title}: {rating}")
     print("\n------------------------------------")
 
+
 def pause():
     input("\nPress Enter to continue...")
+
 
 def main():
     # Dictionary to store the movies and the rating
@@ -258,7 +270,7 @@ def main():
         "12 Angry Men": 8.9,
         "Everything Everywhere All At Once": 8.9,
         "Forrest Gump": 8.8,
-        "Star Wars: Episode V": 8.7
+        "Star Wars: Episode V": 8.7,
     }
 
     print("\n\n********** Movie Database **********")

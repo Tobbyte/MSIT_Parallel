@@ -1,3 +1,5 @@
+"""This module handles a movie database CLI application."""
+
 import random
 
 

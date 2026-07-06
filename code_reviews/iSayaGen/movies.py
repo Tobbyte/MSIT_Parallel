@@ -16,7 +16,11 @@ def add_movie(movies):
     if not title:
         print("\nCancelled by user.")
         return
-
+#############
+#### DNI: einmal eine ketzerische frage: was machst du bei dem film "exit"
+#### und warum gehst du nicht mit elif weiter? das return oben bricht den code ja eh ab wäre etwas lesbarer
+#### zurzeit kann man auch mit enter keienn filmnamen eingeben und dem dennoch ein rating geben. du könntest das auch als abbruchbedingung nehmen
+#############
     if title in movies:
         print("\nMovie already exists!")
         return
@@ -82,7 +86,11 @@ def delete_movie(movies):
                 print("\nInvalid number.")
         else:
             print("\nPlease enter a valid number.")
-
+#############
+#### DNI: Cool das du mit zahlen gemacht hast und man nicht immer alles tippen muss aber die aufgabe war doch das man
+#### den film titel eingibt und dann löscht. das hast du außer acht gelassen, weiß nicht ob du punktabzug riskierst
+#### ebenso bei update
+#############
 
 def select_movie(movies):
     movie_list = list(movies.keys())
@@ -150,7 +158,10 @@ def update_movie(movies):
     print(f"Updated successfully!\nNew rating of '{title}' is {rating}")
     print("\n------------------------------------")
 
-
+#############
+#### DNI: Ich hatte häufig keine volle punktzahl bekommen mit der begründung das jede funktion nur eine sache können soll.
+#### du hast hier viele funktionen wo man vielleicht die test und die fehlermeldungen auslagern und wieder verwenden könnte
+#############
 def show_stats(movies):
     if not movies:
         print("\nNo movies available.")
@@ -295,3 +306,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+#############
+#### DNI: bin mir nicht sicher ob die was anderes als den main aufruf enthalten sollte
+#### hatte mir gemerkt das das nicht sein sollte, weiß es nicht sicher
+#############

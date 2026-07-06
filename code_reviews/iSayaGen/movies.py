@@ -247,36 +247,28 @@ def main():
 
         choice = input("\nChoose an option: ")
 
-        if choice == "1":
-            list_movies(movies)
-            pause()
-        elif choice == "2":
-            add_movie(movies)
-            pause()
-        elif choice == "3":
-            delete_movie(movies)
-            pause()
-        elif choice == "4":
-            update_movie(movies)
-            pause()
-        elif choice == "5":
-            show_stats(movies)
-            pause()
-        elif choice == "6":
-            random_movie(movies)
-            pause()
-        elif choice == "7":
-            search_movies(movies)
-            pause()
-        elif choice == "8":
-            sorted_movies(movies)
-            pause()
-        elif choice == "9":
+        if choice == "9":
             print("\nGoodbye!\n")
             break
+        elif choice == "1":
+            list_movies(movies)
+        elif choice == "2":
+            add_movie(movies)
+        elif choice == "3":
+            delete_movie(movies)
+        elif choice == "4":
+            update_movie(movies)
+        elif choice == "5":
+            show_stats(movies)
+        elif choice == "6":
+            random_movie(movies)
+        elif choice == "7":
+            search_movies(movies)
+        elif choice == "8":
+            sorted_movies(movies)
         else:
             print("\nInvalid choice, try again.")
-            pause()
+        pause()
 
 
 if __name__ == "__main__":

@@ -11,6 +11,7 @@ def list_movies(movies):
 
 
 def add_movie(movies):
+    """Prompt the user to add a new movie with a rating (0–10) to the collection."""
     title = input("\nEnter movie title (leave empty to cancel): ").strip()
 
     if not title:
@@ -46,6 +47,7 @@ def add_movie(movies):
 
 
 def delete_movie(movies):
+    """Allow the user to delete a movie from the collection by name or index."""
     if not movies:
         print("\nNo movies to delete.")
         return
@@ -96,6 +98,7 @@ def delete_movie(movies):
 
 
 def select_movie(movies):
+    """Prompt the user to select a movie from the list by number or name."""
     movie_list = list(movies.keys())
 
     print("------------------------------------\n")
@@ -132,6 +135,7 @@ def select_movie(movies):
 
 
 def get_rating():
+    """Prompt the user for a valid movie rating between 0 and 10, or exit."""
     while True:
         rating_input = input("\nEnter new rating (0-10) or 'exit': ")
 
@@ -151,6 +155,7 @@ def get_rating():
 
 
 def update_movie(movies):
+    """Update the rating of an existing movie selected from the list by number or name."""
     if not movies:
         print("\nNo movies available.")
         return
@@ -173,6 +178,7 @@ def update_movie(movies):
 
 
 def show_stats(movies):
+    """Display statistics about the movie collection (average, median, best, worst)."""
     if not movies:
         print("\nNo movies available.")
         return
@@ -206,6 +212,7 @@ def show_stats(movies):
 
 
 def random_movie(movies):
+    """Display a randomly selected movie from the collection."""
     if not movies:
         print("\nNo movies available.")
         return
@@ -219,6 +226,7 @@ def random_movie(movies):
 
 
 def search_movies(movies):
+    """Search for movies by title substring (case-insensitive)."""
     if not movies:
         print("\nNo movies available.")
         return
@@ -242,6 +250,7 @@ def search_movies(movies):
 
 
 def sorted_movies(movies):
+    """Display all movies sorted by rating in descending order."""
     if not movies:
         print("\nNo movies available.")
         return
@@ -255,10 +264,12 @@ def sorted_movies(movies):
 
 
 def pause():
+    """Pause program execution until the user presses Enter."""
     input("\nPress Enter to continue...")
 
 
 def main():
+    """Run the main menu loop for the movie database CLI application."""
     # Dictionary to store the movies and the rating
     movies = {
         "The Shawshank Redemption": 9.5,

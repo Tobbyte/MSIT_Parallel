@@ -1,3 +1,5 @@
+"""This module handles a movie database CLI application."""
+
 import random
 
 
@@ -9,9 +11,10 @@ def list_movies(movies):
 
 
 def add_movie(movies):
-    title = input("\nEnter movie title (or type 'exit' to cancel): ")
+    title = input("\nEnter movie title (leave empty to cancel): ").strip()
 
-    if title.lower() == "exit":
+    if not title:
+        print("\nCancelled by user.")
         return
 
     if title in movies:
@@ -59,26 +62,92 @@ def delete_movie(movies):
         if choice.lower() == "exit":
             return
 
+        # Option 1: User enters a number
         if choice.isdigit():
             index = int(choice) - 1
 
             if 0 <= index < len(movie_list):
                 title = movie_list[index]
-
-                confirm = input(f"\nDelete '{title}'? (y/n): ")
-
-                if confirm.lower() == "y":
-                    del movies[title]
-                    print("\n------------------------------------\n")
-                    print(f"Movie '{title}' deleted successfully!")
-                    print("\n------------------------------------")
-                else:
-                    print("\nDeletion canceled.")
-                return
             else:
                 print("\nInvalid number.")
+                continue
+
+        # Option 2: User enters a title
         else:
-            print("\nPlease enter a valid number.")
+            # Case-insensitive match
+            matches = [t for t in movie_list if t.lower() == choice.lower()]
+
+            if matches:
+                title = matches[0]
+            else:
+                print("\nMovie not found.")
+                continue
+
+        confirm = input(f"\nDelete '{title}'? (y/n): ")
+
+        if confirm.lower() == "y":
+            del movies[title]
+            print("\n------------------------------------\n")
+            print(f"Movie '{title}' deleted successfully!")
+            print("\n------------------------------------")
+        else:
+            print("\nDeletion canceled.")
+        return
+
+
+def select_movie(movies):
+    movie_list = list(movies.keys())
+
+    print("------------------------------------\n")
+    print("Select a movie to update:\n")
+
+    for i, title in enumerate(movie_list, start=1):
+        print(f"{i}. {title} ({movies[title]})")
+
+    print("\n------------------------------------\n")
+
+    while True:
+        choice = input("Enter movie number, name or 'exit' to cancel: ")
+
+        if choice.lower() == "exit":
+            return None
+
+        # Option 1: number input
+        if choice.isdigit():
+            index = int(choice) - 1
+
+            if 0 <= index < len(movie_list):
+                return movie_list[index]
+            else:
+                print("\nInvalid number.")
+                continue
+
+        # Option 2: title input (case-insensitive)
+        matches = [t for t in movie_list if t.lower() == choice.lower()]
+
+        if matches:
+            return matches[0]
+        else:
+            print("\nMovie not found.")
+
+
+def get_rating():
+    while True:
+        rating_input = input("\nEnter new rating (0-10) or 'exit': ")
+
+        if rating_input.lower() == "exit":
+            return None
+
+        try:
+            rating = float(rating_input)
+
+            if 0 <= rating <= 10:
+                return rating
+            else:
+                print("\nRating must be between 0 and 10.")
+
+        except ValueError:
+            print("\nInvalid rating. Please enter a number.")
 
 
 def update_movie(movies):
@@ -86,49 +155,21 @@ def update_movie(movies):
         print("\nNo movies available.")
         return
 
-    movie_list = list(movies.keys())
+    title = select_movie(movies)
 
-    print("------------------------------------\n")
-    print("Select a movie to update:\n")
-    for i, title in enumerate(movie_list, start=1):
-        print(f"{i}. {title} ({movies[title]})")
+    if title is None:
+        return
+
+    rating = get_rating()
+
+    if rating is None:
+        return
+
+    movies[title] = rating
+
     print("\n------------------------------------\n")
-
-    while True:
-        choice = input("Enter movie number or 'exit' to cancel: ")
-
-        if choice.lower() == "exit":
-            return
-
-        if choice.isdigit():
-            index = int(choice) - 1
-
-            if 0 <= index < len(movie_list):
-                title = movie_list[index]
-
-                while True:
-                    rating_input = input("\nEnter new rating (0-10) or 'exit': ")
-
-                    if rating_input.lower() == "exit":
-                        return
-
-                    try:
-                        rating = float(rating_input)
-
-                        if 0 <= rating <= 10:
-                            movies[title] = rating
-                            print("\n------------------------------------\n")
-                            print(f"Updated successfully!\nNew rating of '{title}' is {rating}")
-                            print("\n------------------------------------")
-                            return
-                        else:
-                            print("\nRating must be between 0 and 10.")
-                    except ValueError:
-                        print("\nInvalid rating. Please enter a number.")
-            else:
-                print("\nInvalid number.")
-        else:
-            print("\nPlease enter a valid number.")
+    print(f"Updated successfully!\nNew rating of '{title}' is {rating}")
+    print("\n------------------------------------")
 
 
 def show_stats(movies):
@@ -172,7 +213,7 @@ def random_movie(movies):
     title = random.choice(list(movies.keys()))
     rating = movies[title]
 
-    print(f"\n----------- Random Movie -----------\n")
+    print("\n----------- Random Movie -----------\n")
     print(f"{title}: {rating}")
     print("\n------------------------------------")
 
@@ -229,8 +270,10 @@ def main():
         "12 Angry Men": 8.9,
         "Everything Everywhere All At Once": 8.9,
         "Forrest Gump": 8.8,
-        "Star Wars: Episode V": 8.7
+        "Star Wars: Episode V": 8.7,
     }
+
+    print("\n\n********** Movie Database **********")
 
     while True:
         print("\n============== Menu: ===============\n")
@@ -247,38 +290,29 @@ def main():
 
         choice = input("\nChoose an option: ")
 
-        if choice == "1":
-            list_movies(movies)
-            pause()
-        elif choice == "2":
-            add_movie(movies)
-            pause()
-        elif choice == "3":
-            delete_movie(movies)
-            pause()
-        elif choice == "4":
-            update_movie(movies)
-            pause()
-        elif choice == "5":
-            show_stats(movies)
-            pause()
-        elif choice == "6":
-            random_movie(movies)
-            pause()
-        elif choice == "7":
-            search_movies(movies)
-            pause()
-        elif choice == "8":
-            sorted_movies(movies)
-            pause()
-        elif choice == "9":
+        if choice == "9":
             print("\nGoodbye!\n")
             break
+        elif choice == "1":
+            list_movies(movies)
+        elif choice == "2":
+            add_movie(movies)
+        elif choice == "3":
+            delete_movie(movies)
+        elif choice == "4":
+            update_movie(movies)
+        elif choice == "5":
+            show_stats(movies)
+        elif choice == "6":
+            random_movie(movies)
+        elif choice == "7":
+            search_movies(movies)
+        elif choice == "8":
+            sorted_movies(movies)
         else:
             print("\nInvalid choice, try again.")
-            pause()
+        pause()
 
 
 if __name__ == "__main__":
-    print("\n\n********** Movie Database **********")
     main()

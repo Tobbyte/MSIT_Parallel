@@ -251,6 +251,8 @@ def main():
         "Forrest Gump": 8.8,
         "Star Wars: Episode V": 8.7
     }
+    
+    print("\n\n********** Movie Database **********")
 
     while True:
         print("\n============== Menu: ===============\n")
@@ -292,5 +294,4 @@ def main():
 
 
 if __name__ == "__main__":
-    print("\n\n********** Movie Database **********")
     main()

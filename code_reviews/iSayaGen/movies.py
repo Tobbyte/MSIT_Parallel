@@ -2,13 +2,11 @@
 
 import random
 
-
 def list_movies(movies):
     print("\n------------ Movie List ------------\n")
     for title, rating in movies.items():
         print(f"{title}: {rating}")
     print("\n------------------------------------")
-
 
 def add_movie(movies):
     title = input("\nEnter movie title (leave empty to cancel): ").strip()
@@ -16,11 +14,7 @@ def add_movie(movies):
     if not title:
         print("\nCancelled by user.")
         return
-#############
-#### DNI: einmal eine ketzerische frage: was machst du bei dem film "exit"
-#### und warum gehst du nicht mit elif weiter? das return oben bricht den code ja eh ab wäre etwas lesbarer
-#### zurzeit kann man auch mit enter keienn filmnamen eingeben und dem dennoch ein rating geben. du könntest das auch als abbruchbedingung nehmen
-#############
+
     if title in movies:
         print("\nMovie already exists!")
         return
@@ -47,7 +41,6 @@ def add_movie(movies):
     print("\n------------------------------------\n")
     print(f"Movie '{title}' was added successfully!")
     print("\n------------------------------------")
-
 
 def delete_movie(movies):
     if not movies:
@@ -86,11 +79,6 @@ def delete_movie(movies):
                 print("\nInvalid number.")
         else:
             print("\nPlease enter a valid number.")
-#############
-#### DNI: Cool das du mit zahlen gemacht hast und man nicht immer alles tippen muss aber die aufgabe war doch das man
-#### den film titel eingibt und dann löscht. das hast du außer acht gelassen, weiß nicht ob du punktabzug riskierst
-#### ebenso bei update
-#############
 
 def select_movie(movies):
     movie_list = list(movies.keys())
@@ -117,7 +105,6 @@ def select_movie(movies):
 
         print("\nInvalid number.")
 
-
 def get_rating():
     while True:
         rating_input = input("\nEnter new rating (0-10) or 'exit': ")
@@ -135,7 +122,6 @@ def get_rating():
 
         except ValueError:
             print("\nInvalid rating. Please enter a number.")
-
 
 def update_movie(movies):
     if not movies:
@@ -158,10 +144,6 @@ def update_movie(movies):
     print(f"Updated successfully!\nNew rating of '{title}' is {rating}")
     print("\n------------------------------------")
 
-#############
-#### DNI: Ich hatte häufig keine volle punktzahl bekommen mit der begründung das jede funktion nur eine sache können soll.
-#### du hast hier viele funktionen wo man vielleicht die test und die fehlermeldungen auslagern und wieder verwenden könnte
-#############
 def show_stats(movies):
     if not movies:
         print("\nNo movies available.")
@@ -194,7 +176,6 @@ def show_stats(movies):
     print(f"Worst movie(s): {', '.join(worst_movies)} ({worst_rating})")
     print("\n------------------------------------")
 
-
 def random_movie(movies):
     if not movies:
         print("\nNo movies available.")
@@ -206,7 +187,6 @@ def random_movie(movies):
     print(f"\n----------- Random Movie -----------\n")
     print(f"{title}: {rating}")
     print("\n------------------------------------")
-
 
 def search_movies(movies):
     if not movies:
@@ -230,7 +210,6 @@ def search_movies(movies):
         print(f"{title} ({rating})")
     print("\n------------------------------------")
 
-
 def sorted_movies(movies):
     if not movies:
         print("\nNo movies available.")
@@ -243,10 +222,8 @@ def sorted_movies(movies):
         print(f"{title}: {rating}")
     print("\n------------------------------------")
 
-
 def pause():
     input("\nPress Enter to continue...")
-
 
 def main():
     # Dictionary to store the movies and the rating
@@ -262,7 +239,7 @@ def main():
         "Forrest Gump": 8.8,
         "Star Wars: Episode V": 8.7
     }
-    
+
     print("\n\n********** Movie Database **********")
 
     while True:
@@ -306,7 +283,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-#############
-#### DNI: bin mir nicht sicher ob die was anderes als den main aufruf enthalten sollte
-#### hatte mir gemerkt das das nicht sein sollte, weiß es nicht sicher
-#############

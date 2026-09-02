@@ -1,7 +1,6 @@
-"""My Zootopia."""
+"""My Zootopia"""
 
 import json
-
 
 ANIMALS_DATA_PATH = "animals_data.json"
 ANIMALS_TEMPLATE_PATH = "animals_template.html"
@@ -10,8 +9,15 @@ OUTPUT_PATH = "animals_output.html"
 
 def load_data(filepath: str) -> list[dict]:
     """Load data from JSON file."""
-    with open(filepath, "r", encoding="utf-8") as file:
-        return json.load(file)
+    try:
+        with open(filepath, "r", encoding="utf-8") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        print(f"File not found: {filepath}")
+        raise FileNotFoundError(f"File not found: {filepath}")
+    except json.JSONDecodeError:
+        print(f"Invalid JSON in file: {filepath}")
+        raise json.JSONDecodeError(f"Invalid JSON in file: {filepath}")
 
 
 def serialize_animal(animal: dict) -> str:
@@ -98,12 +104,13 @@ def main() -> None:
         "Enter a skin type: "
     ).strip().capitalize()
 
-    with open(
-        ANIMALS_TEMPLATE_PATH,
-        "r",
-        encoding="utf-8",
-    ) as file:
-        template = file.read()
+    try:
+        with open(ANIMALS_TEMPLATE_PATH, "r", encoding="utf-8") as file:
+            template = file.read()
+    except FileNotFoundError as error:
+        raise FileNotFoundError(
+            f"Template file not found: {ANIMALS_TEMPLATE_PATH}"
+        ) from error
 
     final_html = create_animals_html(
         animals_data,
@@ -111,12 +118,14 @@ def main() -> None:
         selected_skin_type,
     )
 
-    with open(
-        OUTPUT_PATH,
-        "w",
-        encoding="utf-8",
-    ) as file:
-        file.write(final_html)
+    try:
+        with open(
+            OUTPUT_PATH,
+            "w",
+            encoding="utf-8") as file:
+            file.write(final_html)
+    except OSError as error:
+        raise OSError(f"Could not write output file: {OUTPUT_PATH}") from error
 
 
 if __name__ == "__main__":

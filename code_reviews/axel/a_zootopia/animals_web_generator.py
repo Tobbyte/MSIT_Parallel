@@ -1,74 +1,124 @@
+"""My Zootopia."""
+
 import json
 
 
-def load_data(filepath):
-    '''Loads data from json file'''
-    with open(filepath, 'r') as handle:
-        return json.load(handle)
+ANIMALS_DATA_PATH = "animals_data.json"
+ANIMALS_TEMPLATE_PATH = "animals_template.html"
+OUTPUT_PATH = "animals_output.html"
 
 
-def serialize_animal(animal) -> str:
-    out_string = ''
-    name = animal.get('name')
-    characteristics = animal['characteristics']
-    locations = animal['locations']
+def load_data(filepath: str) -> list[dict]:
+    """Load data from JSON file."""
+    with open(filepath, "r", encoding="utf-8") as file:
+        return json.load(file)
 
-    out_string += '<li class="cards__item">'
+
+def serialize_animal(animal: dict) -> str:
+    """Serialize animal data into HTML string."""
+    out = ""
+    name = animal.get("name")
+    characteristics = animal["characteristics"]
+    locations = animal["locations"]
+
+    out += '<li class="cards__item">'
 
     if name:
-        out_string += f'<div class="card__title">{name}</div>\n'
+        out += f'<div class="card__title">{name}</div>\n'
 
-    out_string += '<div class="card__text">\n'
-    out_string += '<ul class="animal-details">'
+    out += '<div class="card__text">\n'
+    out += '<ul class="animal-details">'
 
     if characteristics.get("diet") is not None:
-        out_string += f'<li class="animal-detail"><strong>Diet:</strong> {characteristics["diet"]}</li>\n'
+        out += (
+            f'<li class="animal-detail"><strong>Diet:</strong> '
+            f'{characteristics["diet"]}</li>\n'
+        )
 
     if locations:
-        out_string += f'<li class="animal-detail"><strong>Location:</strong> {locations[0]}</li>\n'
+        out += (
+            f'<li class="animal-detail"><strong>Location:</strong> '
+            f'{locations[0]}</li>\n'
+        )
 
-    if characteristics.get('type') is not None:
-        out_string += f'<li class="animal-detail"><strong>Type:</strong> {characteristics["type"]}</li>\n'
-    out_string += '</ul>'
-    out_string += '</div>'
-    out_string += '</li>'
-    return out_string
+    if characteristics.get("type") is not None:
+        out += (
+            f'<li class="animal-detail"><strong>Type:</strong> '
+            f'{characteristics["type"]}</li>\n'
+        )
+
+    out += "</ul>"
+    out += "</div>"
+    out += "</li>"
+
+    return out
 
 
-animals_data = load_data('animals_data.json')
+def get_skin_types(animals_data: list[dict]) -> set[str]:
+    """Return all available skin types."""
+    return {
+        animal["characteristics"].get("skin_type")
+        for animal in animals_data
+        if animal["characteristics"].get("skin_type")
+    }
 
-skin_types = set()
 
-for animal in animals_data:
-    skin_type = animal["characteristics"].get("skin_type")
-    if skin_type:
-        skin_types.add(skin_type)
+def create_animals_html(
+    animals_data: list[dict],
+    template: str,
+    selected_skin_type: str,
+) -> str:
+    """Create final HTML content."""
+    output = ""
 
-print("Available skin types:")
-for skin_type in skin_types:
-    print(skin_type)
-print("All")
+    for animal in animals_data:
+        skin_type = animal["characteristics"].get("skin_type")
 
-selected_skin_type = input("Enter a skin type: ").capitalize()
+        if skin_type == selected_skin_type or selected_skin_type == "All":
+            output += serialize_animal(animal)
 
-# open animals_template html and store it in template
-with open("animals_template.html", 'r') as handle:
-    template = handle.read()
+    return template.replace(
+        "__REPLACE_ANIMALS_INFO__",
+        output,
+    )
 
-# loop through json and store wanted data in output string
-output: str = ""
-for animal in animals_data:
-    skin_type = animal["characteristics"].get("skin_type")
-    if skin_type == selected_skin_type or selected_skin_type == "All":
-        output += serialize_animal(animal)
 
-# replace string in template with output and store in final_html
-final_html = template.replace(
-    "__REPLACE_ANIMALS_INFO__",
-    output
-)
+def main() -> None:
+    """Run the Zootopia application."""
+    animals_data = load_data(ANIMALS_DATA_PATH)
 
-# write final_html to animals.html
-with open("animals.html", 'w') as handle:
-    handle.write(final_html)
+    skin_types = get_skin_types(animals_data)
+
+    print("Available skin types:")
+    for skin_type in sorted(skin_types):
+        print(skin_type)
+    print("All")
+
+    selected_skin_type = input(
+        "Enter a skin type: "
+    ).strip().capitalize()
+
+    with open(
+        ANIMALS_TEMPLATE_PATH,
+        "r",
+        encoding="utf-8",
+    ) as file:
+        template = file.read()
+
+    final_html = create_animals_html(
+        animals_data,
+        template,
+        selected_skin_type,
+    )
+
+    with open(
+        OUTPUT_PATH,
+        "w",
+        encoding="utf-8",
+    ) as file:
+        file.write(final_html)
+
+
+if __name__ == "__main__":
+    main()
 

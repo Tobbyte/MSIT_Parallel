@@ -12,12 +12,14 @@ def load_data(filepath: str) -> list[dict]:
     try:
         with open(filepath, "r", encoding="utf-8") as file:
             return json.load(file)
-    except FileNotFoundError:
-        print(f"File not found: {filepath}")
-        raise FileNotFoundError(f"File not found: {filepath}")
-    except json.JSONDecodeError:
-        print(f"Invalid JSON in file: {filepath}")
-        raise json.JSONDecodeError(f"Invalid JSON in file: {filepath}")
+    except FileNotFoundError as error:
+        raise FileNotFoundError(f"File not found: {filepath}") from error
+    except json.JSONDecodeError as error:
+        raise json.JSONDecodeError(
+            f"Invalid JSON in file: {filepath}",
+            error.doc,
+            error.pos,
+        ) from error
 
 
 def serialize_animal(animal: dict) -> str:
@@ -44,7 +46,7 @@ def serialize_animal(animal: dict) -> str:
     if locations:
         out += (
             f'<li class="animal-detail"><strong>Location:</strong> '
-            f'{locations[0]}</li>\n'
+            f"{locations[0]}</li>\n"
         )
 
     if characteristics.get("type") is not None:
@@ -89,6 +91,30 @@ def create_animals_html(
     )
 
 
+def load_template(template_path: str) -> str:
+    """Load HTML template from file."""
+    try:
+        with open(template_path, "r", encoding="utf-8") as file:
+            template = file.read()
+    except FileNotFoundError as error:
+        raise FileNotFoundError(f"Template file not found: {template_path}") from error
+
+    return template
+
+
+def save_html(filepath: str, final_html: str) -> None:
+    """Save final HTML content to output file."""
+    try:
+        with open(
+            filepath,
+            "w",
+            encoding="utf-8",
+        ) as file:
+            file.write(final_html)
+    except OSError as error:
+        raise OSError(f"Could not write output file: {filepath}") from error
+
+
 def main() -> None:
     """Run the Zootopia application."""
     animals_data = load_data(ANIMALS_DATA_PATH)
@@ -100,17 +126,9 @@ def main() -> None:
         print(skin_type)
     print("All")
 
-    selected_skin_type = input(
-        "Enter a skin type: "
-    ).strip().capitalize()
+    selected_skin_type = input("Enter a skin type: ").strip().capitalize()
 
-    try:
-        with open(ANIMALS_TEMPLATE_PATH, "r", encoding="utf-8") as file:
-            template = file.read()
-    except FileNotFoundError as error:
-        raise FileNotFoundError(
-            f"Template file not found: {ANIMALS_TEMPLATE_PATH}"
-        ) from error
+    template = load_template(ANIMALS_TEMPLATE_PATH)
 
     final_html = create_animals_html(
         animals_data,
@@ -118,16 +136,8 @@ def main() -> None:
         selected_skin_type,
     )
 
-    try:
-        with open(
-            OUTPUT_PATH,
-            "w",
-            encoding="utf-8") as file:
-            file.write(final_html)
-    except OSError as error:
-        raise OSError(f"Could not write output file: {OUTPUT_PATH}") from error
+    save_html(OUTPUT_PATH, final_html)
 
 
 if __name__ == "__main__":
     main()
-

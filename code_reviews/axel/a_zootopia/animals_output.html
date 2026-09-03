@@ -1,0 +1,179 @@
+<html>
+    <head>
+        <style>
+        @gray-darker:               #444444;
+        @gray-dark:                 #696969;
+        @gray:                      #999999;
+        @gray-light:                #cccccc;
+        @gray-lighter:              #ececec;
+        @gray-lightest:             lighten(@gray-lighter,4%);
+
+
+        html {
+          background-color: #ffe9e9;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 40pt;
+            font-weight: normal;
+        }
+
+        body {
+          font-family: 'Roboto','Helvetica Neue', Helvetica, Arial, sans-serif;
+          font-style: normal;
+          font-weight: 400;
+          letter-spacing: 0;
+          padding: 1rem;
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-font-feature-settings: "liga" on;
+          width: 900px;
+          margin: auto;
+        }
+
+        .cards {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        .cards__item {
+          background-color: white;
+          border-radius: 0.25rem;
+          box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
+          overflow: hidden;
+          padding: 1rem;
+          margin: 50px;
+        }
+
+        .card__title {
+          color: @gray-dark;
+          font-size: 1.25rem;
+          font-weight: 300;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+        }
+
+        .card__text {
+          flex: 1 1 auto;
+          font-size: 0.95rem;
+          line-height: 2;
+          margin-bottom: 1.25rem;
+        }
+
+        .animal-details {
+            margin-top: 25px;
+            padding: 15px;
+            list-style-type: none;
+            border-radius: 10px;
+            background-color: cornsilk;
+        }
+
+        .animal-detail{
+            margin-bottom: 15px;
+            background-color: burlywood;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        .animal-detail:last-child{
+            margin-bottom: 0;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>My Animal Repository</h1>
+        <ul class="cards">
+            <li class="cards__item"><div class="card__title">American Foxhound</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> North-America</li>
+<li class="animal-detail"><strong>Type:</strong> Hound</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Arctic Fox</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Carnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Eurasia</li>
+<li class="animal-detail"><strong>Type:</strong> Mammal</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Cross Fox</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Carnivore</li>
+<li class="animal-detail"><strong>Location:</strong> North-America</li>
+<li class="animal-detail"><strong>Type:</strong> mammal</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Darwin’s fox</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> South-America</li>
+<li class="animal-detail"><strong>Type:</strong> Mammal</li>
+</ul></div></li><li class="cards__item"><div class="card__title">English Foxhound</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Europe</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Fennec Fox</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Africa</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Fox</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Carnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Africa</li>
+<li class="animal-detail"><strong>Type:</strong> Mammal</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Fox Snakes</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Carnivore</li>
+<li class="animal-detail"><strong>Location:</strong> North-America</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Fox Squirrel</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Central-America</li>
+<li class="animal-detail"><strong>Type:</strong> rodent</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Fox Terrier</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Europe</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Golden-Crowned Flying Fox</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Herbivore</li>
+<li class="animal-detail"><strong>Location:</strong> Asia</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Gray Fox</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Central-America</li>
+<li class="animal-detail"><strong>Type:</strong> Mammal</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Kit Fox</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Central-America</li>
+<li class="animal-detail"><strong>Type:</strong> mammal</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Marble Fox</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> North-America</li>
+<li class="animal-detail"><strong>Type:</strong> Mammal</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Red Fox</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Africa</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Smooth Fox Terrier</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Europe</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Tibetan Fox</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Carnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Asia</li>
+<li class="animal-detail"><strong>Type:</strong> Mammal</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Toy Fox Terrier</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> North-America</li>
+</ul></div></li><li class="cards__item"><div class="card__title">Wire Fox Terrier</div>
+<div class="card__text">
+<ul class="animal-details"><li class="animal-detail"><strong>Diet:</strong> Omnivore</li>
+<li class="animal-detail"><strong>Location:</strong> Europe</li>
+</ul></div></li>
+        </ul>
+    </body>
+</html>

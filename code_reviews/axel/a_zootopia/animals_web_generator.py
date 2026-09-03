@@ -82,8 +82,9 @@ def create_animals_html(
     for animal in animals_data:
         skin_type = animal["characteristics"].get("skin_type")
 
-        if skin_type == selected_skin_type or selected_skin_type == "All":
-            output += serialize_animal(animal)
+        if skin_type != selected_skin_type and selected_skin_type != "All":
+            continue
+        output += serialize_animal(animal)
 
     return template.replace(
         "__REPLACE_ANIMALS_INFO__",
@@ -97,7 +98,9 @@ def load_template(template_path: str) -> str:
         with open(template_path, "r", encoding="utf-8") as file:
             template = file.read()
     except FileNotFoundError as error:
-        raise FileNotFoundError(f"Template file not found: {template_path}") from error
+        raise FileNotFoundError(
+            f"Template file not found: {template_path}"
+        ) from error
 
     return template
 
@@ -115,21 +118,30 @@ def save_html(filepath: str, final_html: str) -> None:
         raise OSError(f"Could not write output file: {filepath}") from error
 
 
-def main() -> None:
-    """Run the Zootopia application."""
-    animals_data = load_data(ANIMALS_DATA_PATH)
-
-    skin_types = get_skin_types(animals_data)
+def prompt_skin_type(skin_types: set[str]) -> str:
+    """Prompt the user until they enter a valid skin type or 'All'."""
+    valid_choices = skin_types | {"All"}
 
     print("Available skin types:")
     for skin_type in sorted(skin_types):
         print(skin_type)
     print("All")
 
-    selected_skin_type = input("Enter a skin type: ").strip().capitalize()
+    while True:
+        selected = input("Enter a skin type: ").strip().capitalize()
+        if selected in valid_choices:
+            return selected
+        print(f"'{selected}' is not a valid option. Please try again.")
+
+
+def main() -> None:
+    """Run the Zootopia application."""
+    animals_data = load_data(ANIMALS_DATA_PATH)
+    skin_types = get_skin_types(animals_data)
+
+    selected_skin_type = prompt_skin_type(skin_types)
 
     template = load_template(ANIMALS_TEMPLATE_PATH)
-
     final_html = create_animals_html(
         animals_data,
         template,

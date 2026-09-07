@@ -1,0 +1,4 @@
+[tool.black]
+line-length = 79
+[tool.ruff.lint]
+    select = ["E", "F", "I", "D"]

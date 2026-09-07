@@ -1,0 +1,9 @@
+{
+    "[python]": {
+        "editor.rulers": [79, 88]
+    },
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "ruff.lineLength": 79,
+    "black-formatter.args": ["--line-length=79"],
+    
+}

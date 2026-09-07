@@ -1,0 +1,29 @@
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+exclude = [
+    ".venv",
+    "venv",
+    "build",
+    "dist",
+    "__pycache__",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort (import sorting)
+    "UP",  # pyupgrade (modernize syntax)
+    "B",   # flake8-bugbear (common bugs/gotchas)
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "E501",  # line too long (let formatter handle it)
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

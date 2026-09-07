@@ -1,4 +1,4 @@
-"""My Zootopia"""
+"""Generate an HTML page displaying animal data filtered by skin type."""
 
 import json
 
@@ -40,7 +40,7 @@ def serialize_animal(animal: dict) -> str:
     if characteristics.get("diet") is not None:
         out += (
             f'<li class="animal-detail"><strong>Diet:</strong> '
-            f'{characteristics["diet"]}</li>\n'
+            f"{characteristics['diet']}</li>\n"
         )
 
     if locations:
@@ -52,7 +52,7 @@ def serialize_animal(animal: dict) -> str:
     if characteristics.get("type") is not None:
         out += (
             f'<li class="animal-detail"><strong>Type:</strong> '
-            f'{characteristics["type"]}</li>\n'
+            f"{characteristics['type']}</li>\n"
         )
 
     out += "</ul>"
